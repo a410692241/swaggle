@@ -18,7 +18,7 @@ public class SwaggleTest {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("cn.saytime.web"))
+                .apis(RequestHandlerSelectors.basePackage("cn.saytime.web" ))
                 .paths(PathSelectors.any())
                 .build();
     }
