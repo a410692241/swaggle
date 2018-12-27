@@ -20,7 +20,7 @@ public class SwaggleTest {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("cn.saytime.web"
                 ))
-                .paths(PathSelectors.any())
+                .paths(PathSelectors.any( ))
                 .build();
     }
 
