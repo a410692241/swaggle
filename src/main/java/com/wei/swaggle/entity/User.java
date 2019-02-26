@@ -9,18 +9,18 @@ import java.util.Date;
  */
 public class User {
  
-	private int id;
+	private Integer id;
 	private String username;
 	private int age;
 	private Date ctm;
  
 	// Getter Setter
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

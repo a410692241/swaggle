@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +27,7 @@ import java.util.Map;
  * @ClassName cn.saytime.web.UserController
  * @Description
  */
+@Api(value = "User",description = "用户controller类")
 @RestController
 public class UserController {
 
@@ -63,7 +65,18 @@ public class UserController {
     public ResponseEntity<JsonResult> getUserList (){
         JsonResult r = new JsonResult();
         try {
-            List<User> userList = new ArrayList<User>(users.values());
+            List<User> userList = new ArrayList<>();
+            User e = new User();
+            e.setId(1);
+            e.setAge(12);
+            e.setUsername("胡");
+
+            userList.add(e);
+            userList.add(e);
+            userList.add(e);
+            userList.add(e);
+            userList.add(e);
+            userList.add(e);
             r.setResult(userList);
             r.setStatus("ok");
         } catch (Exception e) {
@@ -103,7 +116,7 @@ public class UserController {
      * @return
      */
     @ApiOperation(value="删除用户", notes="根据url的id来指定删除用户")
-    @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long", paramType = "path")
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Integer", paramType = "path")
     @RequestMapping(value = "user/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<JsonResult> delete (@PathVariable(value = "id") Integer id){
         JsonResult r = new JsonResult();
@@ -127,18 +140,17 @@ public class UserController {
      */
     @ApiOperation(value="更新信息", notes="根据url的id来指定更新用户信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Long",paramType = "path"),
-            @ApiImplicitParam(name = "user", value = "用户实体user", required = true, dataType = "User")
+
+            @ApiImplicitParam(name = "user", value = "用户实体user", required = true, dataType = "User"),
+            @ApiImplicitParam(name = "uid", value = "用户ID", required = true, dataType = "String",paramType = "path")
     })
-    @RequestMapping(value = "user/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<JsonResult> update (@PathVariable("id") Integer id, @RequestBody User user){
+    @RequestMapping(value = "user/{uid}", method = RequestMethod.PUT)
+    public ResponseEntity<JsonResult> update (@PathVariable("uid") String uid, @RequestBody User user){
         JsonResult r = new JsonResult();
         try {
-            User u = users.get(id);
-            u.setUsername(user.getUsername());
-            u.setAge(user.getAge());
-            users.put(id, u);
-            r.setResult(u);
+            System.out.println(uid);
+            System.out.println(user);
+            r.setResult("123");
             r.setStatus("ok");
         } catch (Exception e) {
             r.setResult(e.getClass().getName() + ":" + e.getMessage());
